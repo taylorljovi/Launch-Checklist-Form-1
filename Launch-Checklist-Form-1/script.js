@@ -1,8 +1,8 @@
 // form.addEventListener("load", launchStatusCheck);
 
 window.addEventListener("load", function() {
-   this.fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response) {
-      response.json().then(function(json) {
+   this.fetch("https://handlers.education.launchcode.org/static/planets.json").then(function(response){
+      response.json().then(function(json){
          const missionTarget = document.getElementById("missionTarget");
          const index = Math.floor(Math.random() * (5-0)) + 0;
          missionTarget.innerHTML = 
@@ -27,11 +27,12 @@ window.addEventListener("load", function() {
    form.addEventListener("submit", inputCheck);
   
    function inputCheck(event) {
-      if (pilotName.value === "" || copilotName.value === "") {
+      if (pilotName.value === "" || copilotName.value === "" || fuelLevel.value === "" || cargoMass === "") {
          alert ("All fields are required!");
          event.preventDefault();
-      } else if (isNaN(fuelLevel.value) || isNaN(cargoMass.value) ){
-         alert ("All fields are required");
+      } 
+      else if (isNaN(fuelLevel.value) === false || isNaN(cargoMass.value) === false ||isNaN(fuelLevel.value) === true || isNaN(cargoMass.value) === true){
+         alert ("Make sure to enter valid information for each field!");
          event.preventDefault();
       }
       else {
@@ -40,7 +41,6 @@ window.addEventListener("load", function() {
    }
 
 let faultyItems = document.getElementById("faultyItems");
-
 function fuelStatus() {
    let fuelLevelStatus;
    if(Number(fuelLevel.value) < 10000) {
@@ -77,7 +77,7 @@ function launchStatusCheck(){
        </ol>`;
    }
    else {
-      document.getElementById("launchStatus").innerHTML = `font color="greet"> Ready for launch</font:`;
+      document.getElementById("launchStatus").innerHTML = `<font color = "green"> Ready for launch</font>`;
       faultyItems.style.visibility = "hidden";
       form.submit()
    }
