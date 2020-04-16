@@ -27,13 +27,12 @@ window.addEventListener("load", function() {
    form.addEventListener("submit", inputCheck);
   
    function inputCheck(event) {
+      event.preventDefault();
       if (pilotName.value === "" || copilotName.value === "" || fuelLevel.value === "" || cargoMass === "") {
-         alert ("All fields are required!");
-         event.preventDefault();
+         alert ("All fields are required!");  
       } 
-      else if (isNaN(fuelLevel.value) === false || isNaN(cargoMass.value) === false ||isNaN(fuelLevel.value) === true || isNaN(cargoMass.value) === true){
+      else if (isNaN(fuelLevel.value) || isNaN(cargoMass.value)){
          alert ("Make sure to enter valid information for each field!");
-         event.preventDefault();
       }
       else {
          launchStatusCheck(event);
@@ -57,7 +56,7 @@ function cargoStatus(){
    if (Number(cargoMass.value) > 10000) {
      cargoStatus = `<li id="cargoStatus">Cargo Mass low enough for launch</li>`;
    }
-   else if (Nubmer(cargoMass.value) <= 10000) {
+   else if (Number(cargoMass.value) <= 10000) {
       cargoStatus = `<li id="cargoStatus">Cargo Mass not low enough for launch</li>`;
    }
    return cargoStatus;
@@ -67,7 +66,7 @@ function launchStatusCheck(){
    event.preventDefault();
    if (Number(fuelLevel.value) < 10000 || Number(cargoMass) > 10000){
       document.getElementById("launchStatus").innerHTML = `<font color = "red">Shuttle not ready for launch</font>`;
-      faultyItems.style.visibility = "visibile";
+      faultyItems.style.visibility = "visible";
       faultyItems.innerHTML = 
        `<ol>
           <li id="pilotStatus">${pilotName.value} Ready</li>
@@ -79,7 +78,6 @@ function launchStatusCheck(){
    else {
       document.getElementById("launchStatus").innerHTML = `<font color = "green"> Ready for launch</font>`;
       faultyItems.style.visibility = "hidden";
-      form.submit()
    }
  }
 });
